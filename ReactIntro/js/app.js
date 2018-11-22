@@ -1,57 +1,28 @@
-class Counter extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: 100
-        };
-    }
+const basicStyles = {
+    background: "cyan",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: "black",
+    textAlign: "center"
+};
 
-    componentDidMount() {
-        this.timerID = setInterval(() => {
-            this.setState({
-                count: this.state.count - 1
-            });
-        }, 1000);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        console.log(
-            `The component has changed. Previous Count: ${prevState.count}`
-        );
-    }
-
+class Section1 extends React.Component {
     render() {
         return (
-            <div>
-                <h1>The value: {this.state.count}</h1>
+            <div style={Object.assign({}, basicStyles, this.props.style)}>
+                {this.props.children}
             </div>
         );
     }
 }
 
-class Container extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            counterExists: false
-        };
-    }
-    toggleCounter = () => {
-        this.setState({
-            counterExists: !this.state.counterExists
-        });
-    };
+const parentStyle = { padding: "10px" };
+
+class Section2 extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.toggleCounter()}>
-                    Toggle Counter
-                </button>
-                {this.state.counterExists ? <Counter /> : null}
+                <Section1 style={parentStyle}>Styling in JS is fun</Section1>
             </div>
         );
     }
@@ -59,7 +30,7 @@ class Container extends React.Component {
 
 const app = (
     <div>
-        <Container />
+        <Section2 />
     </div>
 );
 
