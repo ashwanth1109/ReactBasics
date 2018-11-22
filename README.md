@@ -1,4 +1,4 @@
-# Things to know while getting into ES6 or ES2015
+# Useful things to know while working in React
 
 ## 1. Strict Mode - introduced in ES5
 
@@ -150,6 +150,13 @@ setTimeout(() => {
 
 ## 8. Support for Classes
 
+Inheritance is now similar to other object oriented languages. Earlier, classes had to inherit using
+
+```javascript
+SuperHuman.prototype = Object.create(Human.prototype);
+SuperHuman.prototype.constructor = SuperHuman;
+```
+
 ```javascript
 class Human {
     static callFunc() {
@@ -182,4 +189,32 @@ superMan.fly();
 // And not on instances of the class
 Human.callFunc();
 SuperHuman.callFunc2();
+```
+
+## 9. Using for...of and for...in loops
+
+Loop through arrays using for...of loop -
+
+```javascript
+const array1 = [1, 2, 3, 4];
+for (let element of array1) {
+    console.log(element);
+}
+```
+
+Loop through all non-symbol enumerable properties of an object
+
+```javascript
+const object1 = {
+    prop1: 1,
+    prop2: 2,
+    prop3: 3
+};
+for (const prop in object1) {
+    // hasOwnProperty method is used to prevent inherited properties from being displayed
+    if (object1.hasOwnProperty(prop)) {
+        const element = object1[prop];
+        console.log(prop, element);
+    }
+}
 ```
