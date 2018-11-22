@@ -47,3 +47,53 @@ To use it with a build tool like webpack add the following to your package.json
 ```
 
 Now you can write some ES6 code in app.js and when you run `npm run build` and look at compiled.js you can see the transpiled code.
+
+## 4. Block Scoping with let
+
+You can check out IIFE with var in example1.js
+To solve the requirement of IIFE, we now have a provision for let instead.
+Let is not a replacement for var. Instead it is a way to get block scoping more conveniently.
+
+```javascript
+let a = 2;
+
+{
+    let a = 4;
+    console.log(a); // 4 [Block level scope]
+}
+
+console.log(a); // 2 [Global scope]
+```
+
+## 5. Declaring a constant using const
+
+```javascript
+const pi = 3.14;
+// pi = 2.14; // TypeError: Assignment to constant variable
+
+const array1 = [1, 2, 3, 4];
+array1.push(5); // This is allowed since it is an object method call on a constant
+array1.shift(); // also allowed for the same reasons as above
+// array1 = [5]; // This is not allowed. TypeError: Assignment to constant variable
+```
+
+## 6. Arrow Functions
+
+Arrow Functions are anonymous functions that can be assigned to a variable to create a function expression
+
+```javascript
+var func1 = function() {
+    return "This is a function expression in ES5";
+};
+```
+
+```javascript
+var func2 = () => {
+    return "This is a function expression in ES6 using arrow functions";
+};
+```
+
+```javascript
+var func3 = () =>
+    "This is the shorthand notation for function expression in ES6";
+```
