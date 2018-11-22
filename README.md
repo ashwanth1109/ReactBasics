@@ -1,4 +1,4 @@
-# ES6 or ES2015
+# Things to know while getting into ES6 or ES2015
 
 1. Strict Mode - introduced in ES5
    This is a way to opt in to a restricted variant of Javascript and opting out of 'sloppy mode'.
@@ -23,4 +23,22 @@ External Reference: https://johnresig.com/blog/ecmascript-5-strict-mode-json-and
 
 2. Polyfills/Shims - You can refer to MDN documentation to find fallback code for functionality that is not yet available on certain browsers.
 
-3. Babel/Transpiling
+3. Babel/Transpiling - Babel is a popular transpiler for ES6. Transpilers take 'dialects' of code (ex. ES6) and convert the code for you so that it can run across platforms (or browsers).
+
+To run babel from command line
+
+```
+npm init
+npm install babel-cli
+npm install babel-preset-es2015
+```
+
+To use it with a build tool like webpack add the following to your package.json
+
+```json
+"scripts": {
+    "build": "babel --presets es2015 app.js -o compiled.js"
+}
+```
+
+Now you can write some ES6 code in app.js and when you run `npm run build` and look at compiled.js you can see the transpiled code.
