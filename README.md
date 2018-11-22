@@ -97,3 +97,50 @@ var func2 = () => {
 var func3 = () =>
     "This is the shorthand notation for function expression in ES6";
 ```
+
+## 7. Arrow Functions and Binding
+
+When using callbacks, this gets redefined leading to context issues in JS.
+
+```javascript
+// Arrow functions let you bind correctly to values going up until the top most level.
+// To create arrow functions use the fat arrow or hash rocket
+function Person2(name) {
+    this.name = name;
+    this.logName = function() {
+        setTimeout(function() {
+            this.name = "New Name";
+            this.logName = function() {
+                setTimeout(() => {
+                    console.log(this.name); // New Name
+                    // However this does not alter the value
+                }, 500);
+            };
+            this.logName();
+        }, 500);
+    };
+    this.logName2 = () => {
+        setTimeout(() => {
+            this.name = "New Name 2";
+            this.logName = function() {
+                setTimeout(() => {
+                    console.log(this.name);
+                }, 500);
+            };
+            this.logName();
+        }, 500);
+    };
+}
+
+var person2 = new Person2("Ashwanth");
+person2.logName(); // New Name'
+setTimeout(() => {
+    console.log(`Persons name is currently ${person2.name}`); // Name is not altered
+}, 1000);
+setTimeout(() => {
+    person2.logName2(); // New Name2
+    setTimeout(() => {
+        console.log(`Persons name is currently ${person2.name}`); // Name is altered
+    }, 1000);
+}, 2000);
+```
