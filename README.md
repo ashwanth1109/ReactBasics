@@ -437,3 +437,28 @@ let b = 2;
 // No more temp variables
 [a, b] = [b, a];
 ```
+
+## 19. Merging Objects - Crucial for redux
+
+```javascript
+let a = {
+    name: "Ashwanth"
+};
+let b = {
+    language: "Javascript"
+};
+Object.assign(a, b);
+console.log(a); // Combines b into a
+
+//===========================================
+// Creating a brand new object which is a clone
+// of another with some minor changes - Used in Redux
+//===========================================
+let john = {
+    firstName: "John",
+    lastName: "Doe"
+};
+
+let jane = Object.assign({}, john, { firstName: "Jane" });
+console.log(jane);
+```
