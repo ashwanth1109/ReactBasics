@@ -105,23 +105,26 @@ When using callbacks, this gets redefined leading to context issues in JS.
 ```javascript
 // Arrow functions let you bind correctly to values going up until the top most level.
 // To create arrow functions use the fat arrow or hash rocket
+// Person2 is a constructor function. It can also be declared as a class.
 function Person2(name) {
     this.name = name;
     this.logName = function() {
         setTimeout(function() {
             this.name = "New Name";
+            // However this does not alter the value
             this.logName = function() {
                 setTimeout(() => {
                     console.log(this.name); // New Name
-                    // However this does not alter the value
                 }, 500);
             };
             this.logName();
         }, 500);
     };
-    this.logName2 = () => {
+    this.logName2 = function() {
         setTimeout(() => {
             this.name = "New Name 2";
+            // This alters the value because set timeout is defined using arrow
+            // and lets you access parent constructors this.name by binding it correctly
             this.logName = function() {
                 setTimeout(() => {
                     console.log(this.name);
