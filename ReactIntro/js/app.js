@@ -1,45 +1,65 @@
-class Heading extends React.Component {
+class Counter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null
+            count: 100
         };
     }
-    handleFormSubmit = (e, name) => {
-        e.preventDefault();
-        this.setState({
-            username: name
-        });
-    };
+
+    componentDidMount() {
+        this.timerID = setInterval(() => {
+            this.setState({
+                count: this.state.count - 1
+            });
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(
+            `The component has changed. Previous Count: ${prevState.count}`
+        );
+    }
+
     render() {
         return (
             <div>
-                <h1>Welcome {this.state.username}!</h1>
-                <Auth onLogin={(e, name) => this.handleFormSubmit(e, name)} />
+                <h1>The value: {this.state.count}</h1>
             </div>
         );
     }
 }
 
-class Auth extends React.Component {
+class Container extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            counterExists: false
+        };
+    }
+    toggleCounter = () => {
+        this.setState({
+            counterExists: !this.state.counterExists
+        });
+    };
     render() {
         return (
-            <form
-                onSubmit={e => this.props.onLogin(e, this.refs.username.value)}
-            >
-                <input
-                    type="text"
-                    placeholder="Enter your name"
-                    ref="username"
-                />
-                <input type="submit" value="Log In" />
-            </form>
+            <div>
+                <button onClick={() => this.toggleCounter()}>
+                    Toggle Counter
+                </button>
+                {this.state.counterExists ? <Counter /> : null}
+            </div>
         );
     }
 }
+
 const app = (
     <div>
-        <Heading />
+        <Container />
     </div>
 );
 

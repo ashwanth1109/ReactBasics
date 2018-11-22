@@ -362,3 +362,126 @@ class Auth extends React.Component {
     }
 }
 ```
+
+## 21. Making AJAX requests within React
+
+```javascript
+const MovieInfo = props => {
+    if (props.data) {
+        const { Title, Director, Actors, Year, Rated } = props.data;
+        return (
+            <ul>
+                <li>Title: {Title}</li>
+                <li>Director: {Director}</li>
+                <li>Actors: {Actors}</li>
+                <li>Year: {Year}</li>
+                <li>Rated: {Rated}</li>
+            </ul>
+        );
+    } else {
+        return null;
+    }
+};
+class OMDBQueryForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            foundMovie: null
+        };
+    }
+    queryOMDB = async e => {
+        e.preventDefault();
+        const response = await fetch(
+            `http://www.omdbapi.com/?apikey=53aa2cd6&t=${this.refs.title.value}`
+        );
+        const data = await response.json();
+        this.setState({
+            foundMovie: data
+        });
+    };
+    render() {
+        return (
+            <form onSubmit={e => this.queryOMDB(e)}>
+                <input
+                    ref="title"
+                    type="text"
+                    placeholder="Enter Movie Title"
+                />
+                <input type="submit" value="Find Movie Info" />
+                <MovieInfo data={this.state.foundMovie} />
+            </form>
+        );
+    }
+}
+```
+
+## 22. Component Lifecycle Methods
+
+```javascript
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 100
+        };
+    }
+
+    componentDidMount() {
+        this.timerID = setInterval(() => {
+            this.setState({
+                count: this.state.count - 1
+            });
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(
+            `The component has changed. Previous Count: ${prevState.count}`
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>The value: {this.state.count}</h1>
+            </div>
+        );
+    }
+}
+
+class Container extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            counterExists: false
+        };
+    }
+    toggleCounter = () => {
+        this.setState({
+            counterExists: !this.state.counterExists
+        });
+    };
+    render() {
+        return (
+            <div>
+                <button onClick={() => this.toggleCounter()}>
+                    Toggle Counter
+                </button>
+                {this.state.counterExists ? <Counter /> : null}
+            </div>
+        );
+    }
+}
+
+const app = (
+    <div>
+        <Container />
+    </div>
+);
+
+ReactDOM.render(app, document.querySelector("main"));
+```
