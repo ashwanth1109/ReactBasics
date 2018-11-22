@@ -241,3 +241,199 @@ console.log(account1.bankBalance);
 const account2 = new BankAccount(1000);
 console.log(account2.bankBalance);
 ```
+
+## 11. Array.isArray() method
+
+You can use the isArray() method of Array object to check if a variable's datatype is array.
+
+```javascript
+const arr = [1, 2, 3];
+Array.isArray(arr); // true
+```
+
+## 12. Arguments Object
+
+The arguments object that provides flexibility in the number of arguments a function can take. However, this will only work when using the old function syntax and not the arrow function syntax.
+
+```javascript
+function product() {
+    let prod = 1;
+    for (let i = 0; i < arguments.length; i++) {
+        prod *= arguments[i];
+    }
+    return prod;
+}
+
+console.log(product(1, 2, 3, 4)); // Returns 24
+
+const sum = () => {
+    let sum = 0;
+    for (let i = 0; i < arguments.length; i++) {
+        // arguments does not work with arrow functions
+        sum += arguments[i];
+    }
+    return sum;
+};
+
+// console.log(sum(1, 2, 3, 4)); // This will not work
+```
+
+## 13. Spread and Rest Operators
+
+```javascript
+const arr = [1, 2, 3, 4, 5, 6];
+
+// Spread operator spreads the array into individual elements
+// And then we pass it as parameters to Math.max() function
+console.log(Math.max(...arr)); // 6
+
+// The rest operator gathers many values into an array - opposite of spread
+const returnOnlyNums = (...arrayParams) => {
+    const nums = arrayParams.filter(currentElement => {
+        return typeof currentElement === "number";
+    });
+    return nums;
+};
+
+console.log(returnOnlyNums(1, "a", false, 2, [1, 2, 3], 3)); // [1,2,3]
+```
+
+## 14. Template Literals & String Interpolation
+
+```javascript
+const name = "Ashwanth";
+
+// String Interpolation with variables
+console.log(`Hello ${name}`); // Hello Ashwanth
+
+const getName = () => "Ashwanth";
+
+// String Interpolation with functions
+console.log(`Hello ${getName()}`); // Hello Ashwanth
+
+// String Interpolation for multi line strings
+const template = `
+This String is a multi-line String.
+It is written using template literals
+`;
+console.log(template);
+```
+
+## 15. Object Literals
+
+```javascript
+const a = 1;
+const b = 2;
+const c = 3;
+const object1 = {
+    a,
+    b,
+    c,
+    d() {
+        console.log(this.a, this.b, this.c);
+    }
+};
+
+object1.d(); // 1 2 3
+```
+
+## 16. Array Destructuring
+
+```javascript
+// Array Destructuring
+let a, b;
+[a, b] = [1, 2];
+console.log(a); // 1
+console.log(b); // 2
+
+// Ignoring certain values
+[a, , b] = [1, 2, 3, 4];
+console.log(a); // 1
+console.log(b); // 3
+
+// Using the rest operator
+let c, d, rest;
+[c, d, ...rest] = [10, 20, 30, 40, 50];
+console.log(c); // 10
+console.log(d); // 20
+console.log(rest); // [30, 40, 50]
+
+// Setting default values
+[c = 1, d = 2] = [3];
+console.log(c); // 3
+console.log(d); // 2
+```
+
+## 17. Object Destructuring
+
+```javascript
+// Object Destructuring
+const { a, b } = {
+    a: 1,
+    b: "abc"
+};
+console.log(a); // 1
+console.log(b); // abc
+
+// Changing the name of variables
+const c = {
+    a: 1,
+    b: 2
+};
+const { a: foo, b: bar } = c;
+console.log(foo); // 1
+console.log(bar); // 2
+
+// Setting default value
+const { d = 10, e = 5 } = { d: 3 };
+console.log(d); // 3
+console.log(e); // 5
+
+// Pulling values into a functions argument
+const user1 = {
+    id: 1,
+    displayName: "jdoe",
+    fullName: {
+        firstName: "John",
+        lastName: "Doe"
+    }
+};
+
+const userId = ({ id }) => id;
+
+console.log(`User id is ${userId(user1)}`);
+
+// Pulling values with a default value in functions argument
+const printABC = ({
+    a = "Value doesn't exist",
+    b = "Value doesn't exist",
+    c = "Value doesn't exist"
+}) => [a, b, c];
+
+console.log(printABC({ a: 1, b: 2 }));
+
+// Reassigning property names
+// prettier-ignore
+const foo1 = { "abc": true };
+console.log(foo1.abc); // true
+const foo2 = { "a-b-c": true };
+console.log(foo2["a-b-c"]); // true
+const { "a-b-c": abc } = foo2;
+console.log(abc); // true
+
+// Computing a variable name
+let key = "z";
+let { [key]: foo3 } = { z: "bar" };
+
+console.log(foo3); // bar
+```
+
+## 18. Swapping values using Destructuring
+
+```javascript
+let a = 1;
+let b = 2;
+
+// No more temp variables
+[a, b] = [b, a];
+```
