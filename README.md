@@ -21,4 +21,6 @@ MDN Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 SO Reference: https://stackoverflow.com/questions/8651415/what-is-strict-mode-and-how-is-it-used  
 External Reference: https://johnresig.com/blog/ecmascript-5-strict-mode-json-and-more/
 
-2. Polyfills/Shims
+2. Polyfills/Shims - You can refer to MDN documentation to find fallback code for functionality that is not yet available on certain browsers.
+
+3. Babel/Transpiling
