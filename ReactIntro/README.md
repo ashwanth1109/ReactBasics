@@ -157,3 +157,208 @@ class Heading extends React.Component {
     }
 }
 ```
+
+## 14. Create multiple elements from an array
+
+```javascript
+const nums = [1, 2, 3, 4];
+
+class List extends React.Component {
+    render() {
+        return (
+            <ul>
+                {nums.map((num, index) => (
+                    <li key={index}>{num}</li>
+                ))}
+            </ul>
+        );
+    }
+}
+```
+
+## 15. Components inside Components
+
+```javascript
+class ListItem extends React.Component {
+    render() {
+        return <li>{this.props.num}</li>;
+    }
+}
+class List extends React.Component {
+    render() {
+        return (
+            <ul>
+                {nums.map((num, id) => (
+                    <ListItem key={id} num={num} />
+                ))}
+            </ul>
+        );
+    }
+}
+```
+
+## 16. Accessing parent components tag content using children prop
+
+```javascript
+class Person extends React.Component {
+    render() {
+        return <div>Name of person: {this.props.children}</div>;
+    }
+}
+
+const app = (
+    <div>
+        <Person>
+            <em>Ash</em>
+        </Person>
+        <Person>
+            <em>Niko</em>
+        </Person>
+    </div>
+);
+```
+
+## 17. Component State
+
+```javascript
+class Auth extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: null
+        };
+    }
+    handleChangeName = e => {
+        this.setState({
+            username: e.target.value
+        });
+    };
+    render() {
+        return (
+            <form>
+                {this.state.username}
+                <input
+                    type="text"
+                    placeholder="Enter your name"
+                    onChange={e => this.handleChangeName(e)}
+                />
+                <input type="submit" value="Log In" />
+            </form>
+        );
+    }
+}
+```
+
+## 18. Create references to tags in a component
+
+```javascript
+class Auth extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: null
+        };
+    }
+    handleFormSubmit = e => {
+        e.preventDefault();
+        this.setState({
+            username: this.refs.username.value
+        });
+    };
+    render() {
+        return (
+            <form onSubmit={e => this.handleFormSubmit(e)}>
+                {this.state.username}
+                <input
+                    type="text"
+                    placeholder="Enter your name"
+                    ref="username"
+                />
+                <input type="submit" value="Log In" />
+            </form>
+        );
+    }
+}
+```
+
+## 19. Updating a child component with state values
+
+```javascript
+class Greeting extends React.Component {
+    render() {
+        return <h1>Welcome {this.props.name}</h1>;
+    }
+}
+
+class Auth extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: null
+        };
+    }
+    handleFormSubmit = e => {
+        e.preventDefault();
+        this.setState({
+            username: this.refs.username.value
+        });
+    };
+    render() {
+        return (
+            <form onSubmit={e => this.handleFormSubmit(e)}>
+                <Greeting name={this.state.username} />
+                <input
+                    type="text"
+                    placeholder="Enter your name"
+                    ref="username"
+                />
+                <input type="submit" value="Log In" />
+            </form>
+        );
+    }
+}
+```
+
+## 20. Passing data to Parent Component for updating state
+
+```javascript
+class Heading extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: null
+        };
+    }
+    handleFormSubmit = (e, name) => {
+        e.preventDefault();
+        this.setState({
+            username: name
+        });
+    };
+    render() {
+        return (
+            <div>
+                <h1>Welcome {this.state.username}!</h1>
+                <Auth onLogin={(e, name) => this.handleFormSubmit(e, name)} />
+            </div>
+        );
+    }
+}
+
+class Auth extends React.Component {
+    render() {
+        return (
+            <form
+                onSubmit={e => this.props.onLogin(e, this.refs.username.value)}
+            >
+                <input
+                    type="text"
+                    placeholder="Enter your name"
+                    ref="username"
+                />
+                <input type="submit" value="Log In" />
+            </form>
+        );
+    }
+}
+```
