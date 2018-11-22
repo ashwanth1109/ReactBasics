@@ -114,3 +114,46 @@ class Heading extends React.Component {
     }
 }
 ```
+
+## 11. Conditionally render HTML using if-else
+
+```javascript
+class Heading extends React.Component {
+    render() {
+        if (this.props.admin) {
+            return <h1>Hello Admin!</h1>;
+        } else {
+            return <h1>Hello User!</h1>;
+        }
+    }
+}
+
+const app = (
+    <div>
+        <Heading admin />
+        <Heading />
+    </div>
+);
+```
+
+## 12. Conditionally render HTML using ternary
+
+```javascript
+class Heading extends React.Component {
+    render() {
+        return <h1>Hello {this.props.admin ? "Admin" : "User"}!</h1>;
+    }
+}
+```
+
+## 13. Conditionally render JSX using ternary
+
+```javascript
+class Heading extends React.Component {
+    render() {
+        return (
+            <h1>Hello {this.props.admin ? <em>Admin</em> : <em>User</em>}!</h1>
+        );
+    }
+}
+```

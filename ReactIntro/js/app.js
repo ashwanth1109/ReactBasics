@@ -1,20 +1,16 @@
 class Heading extends React.Component {
-    alertName = () => {
-        // arrow function does binding properly here
-        alert(this.props.name);
-    };
     render() {
         return (
-            <h1 onClick={() => this.alertName()}>Hello {this.props.name}!</h1>
+            <h1>Hello {this.props.admin ? <em>Admin</em> : <em>User</em>}!</h1>
         );
     }
 }
 
-const jsx = (
+const app = (
     <div>
-        <Heading name="Ash" />
-        <Heading name="Niko" />
+        <Heading admin />
+        <Heading />
     </div>
 );
 
-ReactDOM.render(jsx, document.querySelector("main"));
+ReactDOM.render(app, document.querySelector("main"));
