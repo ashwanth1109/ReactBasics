@@ -17,6 +17,8 @@
     };
     ```
 
-MDN Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-SO Reference: https://stackoverflow.com/questions/8651415/what-is-strict-mode-and-how-is-it-used
+MDN Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode  
+SO Reference: https://stackoverflow.com/questions/8651415/what-is-strict-mode-and-how-is-it-used  
 External Reference: https://johnresig.com/blog/ecmascript-5-strict-mode-json-and-more/
+
+2. Polyfills/Shims
