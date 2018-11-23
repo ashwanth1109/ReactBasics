@@ -1,11 +1,15 @@
 import React, { Component } from "react";
+import store from "../store";
 
 class CommentsForm extends Component {
     handleSubmit(e) {
         e.preventDefault();
-        this.props.createComment({
-            body: this.refs.body.value,
-            author: this.refs.author.value
+        store.dispatch({
+            type: "ADD",
+            comment: {
+                body: this.refs.body.value,
+                author: this.refs.author.value
+            }
         });
         this.refs.body.value = "";
         this.refs.author.value = "";
